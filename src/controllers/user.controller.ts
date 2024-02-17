@@ -1,7 +1,7 @@
 import { ApiResponse } from "../utils/ApiResponse";
 import { Request,Response } from "express";
 import { signRefreshandAccessToken } from "../config/jwt";
-import userModel from "../modals/user.model";
+import userModel from "../models/user.model";
 
 export const options  = {
     httpOnly : true,
@@ -9,7 +9,7 @@ export const options  = {
 }
 
 const register = async (req: Request,res: Response) => {
-    try{
+    try{ 
         for(let fields in req.body){
             if(req.body[fields] == ''){
                 throw new Error(`${fields} is empty .`)
@@ -50,10 +50,8 @@ const register = async (req: Request,res: Response) => {
 }
 
 const login = async (req: Request,res: Response) => {
-    // email and password comes with res.body;
     const {email,password} = req.body;
 
-    // check email is persent on database
     const user = await userModel.findOne({
         email
     }) as any

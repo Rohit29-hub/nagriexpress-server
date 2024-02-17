@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.register = exports.options = void 0;
 const ApiResponse_1 = require("../utils/ApiResponse");
 const jwt_1 = require("../config/jwt");
-const user_model_1 = __importDefault(require("../modals/user.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 exports.options = {
     httpOnly: true,
     secure: true
