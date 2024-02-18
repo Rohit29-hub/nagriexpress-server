@@ -134,7 +134,7 @@ const deleteProduct = async (req: Request, res: Response) => {
         }
 
         res.json(
-            new ApiResponse(200,"delete Product product Successfully.",{
+            new ApiResponse(200,"delete product Successfully.",{
                 data: null
             })
         )

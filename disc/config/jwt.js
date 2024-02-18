@@ -10,7 +10,7 @@ const signRefreshandAccessToken = (payload) => {
         expiresIn: '60d'
     });
     const accessToken = jsonwebtoken_1.default.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: '1h'
+        expiresIn: '2h'
     });
     return {
         token,

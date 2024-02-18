@@ -71,7 +71,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     const { token, accessToken } = (0, jwt_1.signRefreshandAccessToken)({ id: user._id, email: user.email });
-    yield user_model_1.default.findOneAndUpdate(user._id, { refreshToken: token }, { new: true });
+    yield user_model_1.default.findOneAndUpdate(user._id, { refreshToken: token });
     res.cookie("accessToken", accessToken, exports.options).json(new ApiResponse_1.ApiResponse(200, "success", {
         message: 'Your logged in Successfully'
     }));

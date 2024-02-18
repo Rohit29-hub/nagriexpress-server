@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import registerRoute from './routes/register.routes'
 import loginRoute from './routes/login.routes'
 import productRoute from './routes/product.routes'
+import adminRoute from './routes/admin.routes'
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
@@ -18,7 +19,7 @@ app.use('/nagriexpress/v2/',productRoute);
 
 // admin routes
 
-app.use('/nagriexpress/v3/admin/')
+app.use('/nagriexpress/v3/admin/',adminRoute)
 
 
 

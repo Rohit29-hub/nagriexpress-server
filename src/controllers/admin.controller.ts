@@ -21,6 +21,14 @@ const getAllAdmins = (req: Request, res: Response) => {
 
 const addAdmin = async (req: Request, res: Response) => {
     try{
+        const isPersent = await adminModel.findOne({
+            email: req.body.email
+        })
+
+        if(isPersent){
+            throw new Error("Admin already exits")
+        }
+
         const newAdmin = await new adminModel({
             name: req.body.name,
             email: req.body.email,
@@ -44,17 +52,14 @@ const addAdmin = async (req: Request, res: Response) => {
 const deleteAdmin = async (req: Request, res: Response) => {
     const { adminId } = req.params;
     try{
-        const admin = await adminModel.findOne({
+        
+        const admin = await adminModel.findOneAndDelete({
             _id: adminId
         })
-
+        
         if(!admin){
             throw new Error("Admin not found !")
         }
-
-        await adminModel.findOneAndDelete({
-            _id: adminId
-        })
 
         res.json(
             new ApiResponse(200,"Delete admin successfully.",{

@@ -123,7 +123,7 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (!product) {
             throw new Error("Product not found !");
         }
-        res.json(new ApiResponse_1.ApiResponse(200, "delete Product product Successfully.", {
+        res.json(new ApiResponse_1.ApiResponse(200, "delete product Successfully.", {
             data: null
         }));
     }

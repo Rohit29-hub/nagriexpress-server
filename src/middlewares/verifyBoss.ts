@@ -8,6 +8,5 @@ export const verifyBoss = (req: Request, res: Response, next: NextFunction) => {
             success: false
         })
     }
-
     next();
 }   

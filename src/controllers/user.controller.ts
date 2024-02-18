@@ -73,7 +73,7 @@ const login = async (req: Request,res: Response) => {
     }
 
     const {token,accessToken} = signRefreshandAccessToken({id: user._id,email: user.email});
-    await userModel.findOneAndUpdate(user._id, { refreshToken: token }, { new: true });
+    await userModel.findOneAndUpdate(user._id, { refreshToken: token });
 
     res.cookie("accessToken",accessToken,options).json(
         new ApiResponse(200,"success",{
