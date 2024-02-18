@@ -6,7 +6,6 @@ import { Types } from "mongoose";
 const allProducts = async (req: Request, res: Response) => {
     try {
         const products = await ProductModel.find({});
-
         res.json(new ApiResponse(200, "data fetch successfully.", {
             success: true,
             data: products
@@ -53,7 +52,7 @@ const addProduct = async (req: Request, res: Response) => {
     try{
 
         for(let fields in req.body){
-            if(req.body[fields] == ''){
+            if(req.body[fields] == '' && req.body[fields] != 0){
                 throw new Error(`Please add this field. Because ${fields} is empty .`)
             }
         }
@@ -98,13 +97,10 @@ const addProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
-    const updateFields = {};
-    
     try{
         const product = await ProductModel.findOneAndUpdate(
             {_id: productId},
-            {$set: updateFields},
-            {new : true}
+            {$set: req.body}
         )
 
         if (!product) {
@@ -125,9 +121,36 @@ const updateProduct = async (req: Request, res: Response) => {
     }
 }
 
+const deleteProduct = async (req: Request, res: Response) => {
+    const { productId } = req.params;
+
+    try{
+        const product = await ProductModel.findOneAndDelete(
+            {_id: productId}
+        )
+
+        if (!product) {
+            throw new Error("Product not found !");
+        }
+
+        res.json(
+            new ApiResponse(200,"delete Product product Successfully.",{
+                data: null
+            })
+        )
+
+    }catch(err: any){
+        res.status(401).json({
+            message: err.message,
+            success: false
+        })
+    }
+}
+
 export {
     allProducts,
     signleProduct,
     addProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }

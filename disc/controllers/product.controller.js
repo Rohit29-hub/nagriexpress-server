@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addProduct = exports.signleProduct = exports.allProducts = void 0;
+exports.deleteProduct = exports.updateProduct = exports.addProduct = exports.signleProduct = exports.allProducts = void 0;
 const product_model_1 = __importDefault(require("../models/product.model"));
 const ApiResponse_1 = require("../utils/ApiResponse");
 const mongoose_1 = require("mongoose");
@@ -59,7 +59,7 @@ exports.signleProduct = signleProduct;
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         for (let fields in req.body) {
-            if (req.body[fields] == '') {
+            if (req.body[fields] == '' && req.body[fields] != 0) {
                 throw new Error(`Please add this field. Because ${fields} is empty .`);
             }
         }
@@ -97,3 +97,41 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.addProduct = addProduct;
+const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.params;
+    try {
+        const product = yield product_model_1.default.findOneAndUpdate({ _id: productId }, { $set: req.body });
+        if (!product) {
+            throw new Error("Product not found !");
+        }
+        res.json(new ApiResponse_1.ApiResponse(200, "update product successfully.", {
+            id: product._id
+        }));
+    }
+    catch (err) {
+        res.status(401).json({
+            message: err.message,
+            success: false
+        });
+    }
+});
+exports.updateProduct = updateProduct;
+const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.params;
+    try {
+        const product = yield product_model_1.default.findOneAndDelete({ _id: productId });
+        if (!product) {
+            throw new Error("Product not found !");
+        }
+        res.json(new ApiResponse_1.ApiResponse(200, "delete Product product Successfully.", {
+            data: null
+        }));
+    }
+    catch (err) {
+        res.status(401).json({
+            message: err.message,
+            success: false
+        });
+    }
+});
+exports.deleteProduct = deleteProduct;

@@ -53,9 +53,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // email and password comes with res.body;
     const { email, password } = req.body;
-    // check email is persent on database
     const user = yield user_model_1.default.findOne({
         email
     });

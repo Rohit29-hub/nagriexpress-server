@@ -9,9 +9,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
 
+// user routes
 app.use('/nagriexpress/user/v1/account',registerRoute);
 app.use('/nagriexpress/user/v1/account',loginRoute);
-app.use('/nagriexpress/v1/',productRoute);
+
+// product routes
+app.use('/nagriexpress/v2/',productRoute);
+
+// admin routes
+
+app.use('/nagriexpress/v3/admin/')
+
+
 
 
 

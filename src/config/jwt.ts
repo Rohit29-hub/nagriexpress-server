@@ -6,7 +6,7 @@ const signRefreshandAccessToken = (payload: object) => {
     })
 
     const accessToken = jwt.sign(payload,process.env.JWT_SECRET!,{
-        expiresIn: '1h'
+        expiresIn: '2h'
     })
 
     return {
@@ -18,6 +18,7 @@ const signRefreshandAccessToken = (payload: object) => {
 export const verifyJwtToken = (token: string) => {
     try {
         const user = jwt.verify(token,process.env.JWT_SECRET!);
+        
         if(!user){
             throw new Error("Invalid token");
         }
